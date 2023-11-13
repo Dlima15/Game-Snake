@@ -1,10 +1,11 @@
 import random
 import pygame
+import sys
 
 pygame.init()
 pygame.display.set_caption("Jogo da Cobrinha")
 largura, altura = 600, 400
-pygame.display.set_mode((largura, altura))
+tela = pygame.display.set_mode((largura, altura))
 relogio = pygame.time.Clock()
 
 #cores dos elementos, cobrinha, comida e fundo
@@ -27,10 +28,12 @@ def jogar_jogo():
 
 
     while not fim_do_jogo:
-        
+        tela.fill(preta)
+
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                fim_do_jogo = True
+                fim_do_jogo = True  
+
 
 
 
