@@ -26,6 +26,8 @@ def gerar_comida():
     comida_y =  round(random.randrange(0, altura - tamanho_quadrado) / 15.0) * 15.0 
     return comida_x, comida_y
 
+def desenhar_comida(tamanho, comida_x, comida_y):
+    pygame.draw.rect(tela, verde, [comida_x, comida_y, tamanho, tamanho])
 
 #inicio do código do jogo
 
@@ -50,6 +52,15 @@ def jogar_jogo():
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 fim_do_jogo = True  
+
+                #desenho da comida
+
+                desenhar_comida(tamanho_quadrado, comida_x, comida_y)
+
+                pygame.display.update()
+                relogio.tick(velocidade_de_atualização)
+
+
 
 
 
