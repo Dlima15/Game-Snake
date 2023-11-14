@@ -21,6 +21,10 @@ azul = (0, 0, 255)
 tamanho_quadrado = 15
 velocidade_de_atualização = 15 
 
+def gerar_comida():
+    return comida_x, comida_y
+
+
 #inicio do código do jogo
 
 def jogar_jogo():
@@ -31,6 +35,11 @@ def jogar_jogo():
 
     velocidade_x = 0 
     velocidade_y = 0
+
+    tamanho_cobra = 1 
+    pixels = []
+
+    comida_x, comida_y = gerar_comida
 
 
     while not fim_do_jogo:
