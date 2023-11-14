@@ -22,6 +22,8 @@ tamanho_quadrado = 15
 velocidade_de_atualização = 15 
 
 def gerar_comida():
+    comida_x =  round(random.randrange(0, largura - tamanho_quadrado) / 15.0) * 15.0 
+    comida_y =  round(random.randrange(0, altura - tamanho_quadrado) / 15.0) * 15.0 
     return comida_x, comida_y
 
 
@@ -39,7 +41,7 @@ def jogar_jogo():
     tamanho_cobra = 1 
     pixels = []
 
-    comida_x, comida_y = gerar_comida
+    comida_x, comida_y = gerar_comida()
 
 
     while not fim_do_jogo:
