@@ -12,15 +12,15 @@ relogio = pygame.time.Clock()
 preta = (0, 0, 0)
 verde = (0, 255, 0)
 branca = (255, 255, 255)
-Azul =(0, 0, 255)
+Azul = (0, 0, 255)
 
 # medidas da cobrinha
 tamanho_quadrado = 15
-velocidade_de_atualizacao = 15 
+velocidade_de_atualizacao = 15
 
 def gerar_comida():
-    comida_x = round(random.randrange(0, largura - tamanho_quadrado) / 15.0) * 15.0 
-    comida_y = round(random.randrange(0, altura - tamanho_quadrado) / 15.0) * 15.0 
+    comida_x = round(random.randrange(0, largura - tamanho_quadrado) / 15.0) * 15.0
+    comida_y = round(random.randrange(0, altura - tamanho_quadrado) / 15.0) * 15.0
     return comida_x, comida_y
 
 def desenhar_comida(tamanho, comida_x, comida_y):
@@ -28,26 +28,26 @@ def desenhar_comida(tamanho, comida_x, comida_y):
 
 def desenhar_cobra(tamanho, pixels):
     for pixel in pixels:
-        pygame.draw.rect(tela, branca,[pixel[0], pixel[1], tamanho, tamanho])
+        pygame.draw.rect(tela, branca, [pixel[0], pixel[1], tamanho, tamanho])
 
 def desenhar_pontuacao(pontuacao):
-    fonte = pygame.font.SysFont("Arial", 25,)
+    fonte = pygame.font.SysFont("Arial", 25)
     texto = fonte.render(f"Pontos: {pontuacao}", True, Azul)
     tela.blit(texto, [1, 1])
 
 def selecionar_velocidade(tecla):
     if tecla == pygame.K_DOWN:
-        velocidade_x= 0
-        velocidade_y= tamanho_quadrado
+        velocidade_x = 0
+        velocidade_y = tamanho_quadrado
     elif tecla == pygame.K_UP:
-        velocidade_x= 0
-        velocidade_y= -tamanho_quadrado
+        velocidade_x = 0
+        velocidade_y = -tamanho_quadrado
     elif tecla == pygame.K_RIGHT:
-        velocidade_x= tamanho_quadrado
-        velocidade_y= 0
+        velocidade_x = tamanho_quadrado
+        velocidade_y = 0
     elif tecla == pygame.K_LEFT:
-        velocidade_x= -tamanho_quadrado
-        velocidade_y= 0
+        velocidade_x = -tamanho_quadrado
+        velocidade_y = 0
     return velocidade_x, velocidade_y
 
 # início do código do jogo
@@ -57,10 +57,10 @@ def jogar_jogo():
     x = largura / 2
     y = altura / 2
 
-    velocidade_x = 0 
+    velocidade_x = 0
     velocidade_y = 0
 
-    tamanho_cobra = 1 
+    tamanho_cobra = 1
     pixels = []
 
     comida_x, comida_y = gerar_comida()
@@ -71,11 +71,16 @@ def jogar_jogo():
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 fim_do_jogo = True
+            elif evento.type == pygame.KEYDOWN:
+                velocidade_x, velocidade_y = selecionar_velocidade(evento.key)
 
         # desenho da comida
         desenhar_comida(tamanho_quadrado, comida_x, comida_y)
 
-        #atualização da posição da cobra
+        # atualização da posição da cobra
+        if x < 0 or x >= largura or y < 0 or y >= altura:
+            fim_do_jogo = True
+
         x += velocidade_x
         y += velocidade_y
 
@@ -83,13 +88,11 @@ def jogar_jogo():
         pixels.append([x, y])
         if len(pixels) > tamanho_cobra:
             del pixels[0]
-        
-        #regra da cobrinha bater no próprio corpo
+
+        # regra da cobrinha bater no próprio corpo
         for pixel in pixels[:-1]:
             if pixel == [x, y]:
-                fim_do_jogo = True 
-            elif evento.type == pygame.KEYDOWN:
-                velocidade_x, velocidade_y = selecionar_velocidade(evento.key)
+                fim_do_jogo = True
 
         desenhar_cobra(tamanho_quadrado, pixels)
 
@@ -97,10 +100,10 @@ def jogar_jogo():
 
         # atualização da tela
         pygame.display.update()
-        
-        #criação da nova comida após a cobrinha ja ter papado
+
+        # criação da nova comida após a cobrinha já ter papado
         if x == comida_x and y == comida_y:
-            tamanho_cobra += 1 
+            tamanho_cobra += 1
             comida_x, comida_y = gerar_comida()
 
         # controle de velocidade
