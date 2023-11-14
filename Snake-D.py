@@ -29,6 +29,11 @@ def gerar_comida():
 def desenhar_comida(tamanho, comida_x, comida_y):
     pygame.draw.rect(tela, verde, [comida_x, comida_y, tamanho, tamanho])
 
+def desenhar_cobra(tamanho, pixels):
+    for pixel in pixels:
+        pygame.draw.rect(tela, branca,[pixel[0], pixel[1]], tamanho, tamanho)
+
+
 #inicio do código do jogo
 
 def jogar_jogo():
@@ -62,13 +67,15 @@ def jogar_jogo():
 
                  #desenho da cobra
 
-                pixels.append(x,y)
+                pixels.append([x,y])
                 if len(pixels) > tamanho_cobra:
                     del pixels[0]
 
-                for pixel in pixels:
+                for pixel in pixels[:-1]:
                     if pixel == [x, y]:
                         fim_do_jogo = True 
+                desenhar_cobra(tamanho_quadrado, pixels)
+                    
 
 
 
