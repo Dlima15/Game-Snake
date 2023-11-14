@@ -12,6 +12,7 @@ relogio = pygame.time.Clock()
 preta = (0, 0, 0)
 verde = (0, 255, 0)
 branca = (255, 255, 255)
+Azul =(0, 0, 255)
 
 # medidas da cobrinha
 tamanho_quadrado = 15
@@ -28,6 +29,11 @@ def desenhar_comida(tamanho, comida_x, comida_y):
 def desenhar_cobra(tamanho, pixels):
     for pixel in pixels:
         pygame.draw.rect(tela, branca,[pixel[0], pixel[1], tamanho, tamanho])
+
+def desenhar_pontuacao(pontuacao):
+    fonte = pygame.font.SysFont("Arial", 25,)
+    texto = fonte.render(f"Pontos: {pontuacao}", True, Azul)
+    tela.blit(texto, [1, 1])
 
 # início do código do jogo
 def jogar_jogo():
@@ -58,12 +64,15 @@ def jogar_jogo():
         pixels.append([x, y])
         if len(pixels) > tamanho_cobra:
             del pixels[0]
-
+        
+        #regra da cobrinha bater no próprio corpo
         for pixel in pixels[:-1]:
             if pixel == [x, y]:
                 fim_do_jogo = True 
 
         desenhar_cobra(tamanho_quadrado, pixels)
+
+        desenhar_pontuacao(tamanho_cobra - 1)
 
         # atualização da tela
         pygame.display.update()
