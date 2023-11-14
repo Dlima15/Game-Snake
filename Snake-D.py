@@ -1,3 +1,4 @@
+import os
 import random
 import pygame
 import sys
@@ -34,6 +35,17 @@ def desenhar_pontuacao(pontuacao):
     fonte = pygame.font.SysFont("Arial", 25)
     texto = fonte.render(f"Pontos: {pontuacao}", True, Azul)
     tela.blit(texto, [1, 1])
+
+def mostrar_mensagem_final(pontuacao):
+    print("Como quer salvar seu nome Campeão?")
+    nome = input()
+    salvar_pontuacao(nome, pontuacao)
+    print("Pontuação salva com sucesso!")
+
+def salvar_pontuacao(nome, pontuacao):
+    arquivo_path = os.path.join(os.path.dirname(__file__), "pontuacoes.txt")
+    with open(arquivo_path, "a") as arquivo:
+        arquivo.write(f"{nome}: {pontuacao}\n")
 
 def selecionar_velocidade(tecla):
     if tecla == pygame.K_DOWN:
@@ -108,6 +120,9 @@ def jogar_jogo():
 
         # controle de velocidade
         relogio.tick(velocidade_de_atualizacao)
+
+    # mostrar mensagem final e salvar pontuação
+    mostrar_mensagem_final(tamanho_cobra - 1)
 
 # chama a função para iniciar o jogo
 jogar_jogo()
