@@ -75,6 +75,10 @@ def jogar_jogo():
         # desenho da comida
         desenhar_comida(tamanho_quadrado, comida_x, comida_y)
 
+        #atualização da posição da cobra
+        x += velocidade_x
+        y += velocidade_y
+
         # desenho da cobra
         pixels.append([x, y])
         if len(pixels) > tamanho_cobra:
