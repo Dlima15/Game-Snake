@@ -2,6 +2,8 @@ import random
 import pygame
 import sys
 
+#Parte do jogo feira pelo William ( não funciona  )
+
 pygame.init()
 pygame.display.set_caption("Jogo da Cobrinha")
 largura, altura = 600, 400

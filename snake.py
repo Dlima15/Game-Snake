@@ -4,6 +4,8 @@ import sys
 
 pygame.init()
 
+#Parte do jogo feira pelo VINI ( INCOMPLETO )
+
 # Configurações da tela
 largura, altura = 600, 400
 tela = pygame.display.set_mode((largura, altura))

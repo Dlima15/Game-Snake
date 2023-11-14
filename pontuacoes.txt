@@ -1,2 +1,3 @@
 danilo: 6
 Dani mágico: 30
+Clemps : 4
