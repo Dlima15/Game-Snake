@@ -60,6 +60,17 @@ def jogar_jogo():
                 pygame.display.update()
                 relogio.tick(velocidade_de_atualização)
 
+                 #desenho da cobra
+
+                pixels.append(x,y)
+                if len(pixels) > tamanho_cobra:
+                    del pixels[0]
+
+                for pixel in pixels:
+                    if pixel == [x, y]:
+                        fim_do_jogo = True 
+
+
 
 
 
