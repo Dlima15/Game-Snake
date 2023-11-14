@@ -8,22 +8,18 @@ largura, altura = 1000, 600
 tela = pygame.display.set_mode((largura, altura))
 relogio = pygame.time.Clock()
 
-#cores dos elementos, cobrinha, comida e fundo
-
+# cores dos elementos, cobrinha, comida e fundo
 preta = (0, 0, 0)
-branca = (255, 255, 255)
-vermelha = (255, 0, 0)
 verde = (0, 255, 0)
-azul = (0, 0, 255)
+branca = (255, 255, 255)
 
-#medidas da cobrinha
-
+# medidas da cobrinha
 tamanho_quadrado = 15
-velocidade_de_atualização = 15 
+velocidade_de_atualizacao = 15 
 
 def gerar_comida():
-    comida_x =  round(random.randrange(0, largura - tamanho_quadrado) / 15.0) * 15.0 
-    comida_y =  round(random.randrange(0, altura - tamanho_quadrado) / 15.0) * 15.0 
+    comida_x = round(random.randrange(0, largura - tamanho_quadrado) / 15.0) * 15.0 
+    comida_y = round(random.randrange(0, altura - tamanho_quadrado) / 15.0) * 15.0 
     return comida_x, comida_y
 
 def desenhar_comida(tamanho, comida_x, comida_y):
@@ -31,11 +27,9 @@ def desenhar_comida(tamanho, comida_x, comida_y):
 
 def desenhar_cobra(tamanho, pixels):
     for pixel in pixels:
-        pygame.draw.rect(tela, branca,[pixel[0], pixel[1]], tamanho, tamanho)
+        pygame.draw.rect(tela, branca,[pixel[0], pixel[1], tamanho, tamanho])
 
-
-#inicio do código do jogo
-
+# início do código do jogo
 def jogar_jogo():
     fim_do_jogo = False
 
@@ -50,52 +44,36 @@ def jogar_jogo():
 
     comida_x, comida_y = gerar_comida()
 
-
     while not fim_do_jogo:
         tela.fill(preta)
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
-                fim_do_jogo = True  
+                fim_do_jogo = True
 
-                #desenho da comida
+        # desenho da comida
+        desenhar_comida(tamanho_quadrado, comida_x, comida_y)
 
-                desenhar_comida(tamanho_quadrado, comida_x, comida_y)
+        # desenho da cobra
+        pixels.append([x, y])
+        if len(pixels) > tamanho_cobra:
+            del pixels[0]
 
-                pygame.display.update()
-                relogio.tick(velocidade_de_atualização)
+        for pixel in pixels[:-1]:
+            if pixel == [x, y]:
+                fim_do_jogo = True 
 
-                 #desenho da cobra
+        desenhar_cobra(tamanho_quadrado, pixels)
 
-                pixels.append([x,y])
-                if len(pixels) > tamanho_cobra:
-                    del pixels[0]
+        # atualização da tela
+        pygame.display.update()
+        
+        # controle de velocidade
+        relogio.tick(velocidade_de_atualizacao)
 
-                for pixel in pixels[:-1]:
-                    if pixel == [x, y]:
-                        fim_do_jogo = True 
-                desenhar_cobra(tamanho_quadrado, pixels)
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# chama a função para iniciar o jogo
 jogar_jogo()
+
+# fecha o programa corretamente
+pygame.quit()
+sys.exit()
