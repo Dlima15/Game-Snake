@@ -35,6 +35,21 @@ def desenhar_pontuacao(pontuacao):
     texto = fonte.render(f"Pontos: {pontuacao}", True, Azul)
     tela.blit(texto, [1, 1])
 
+def selecionar_velocidade(tecla):
+    if tecla == pygame.K_DOWN:
+        velocidade_x= 0
+        velocidade_y= tamanho_quadrado
+    elif tecla == pygame.K_UP:
+        velocidade_x= 0
+        velocidade_y= -tamanho_quadrado
+    elif tecla == pygame.K_RIGHT:
+        velocidade_x= tamanho_quadrado
+        velocidade_y= 0
+    elif tecla == pygame.K_LEFT:
+        velocidade_x= -tamanho_quadrado
+        velocidade_y= 0
+    return velocidade_x, velocidade_y
+
 # início do código do jogo
 def jogar_jogo():
     fim_do_jogo = False
@@ -69,6 +84,8 @@ def jogar_jogo():
         for pixel in pixels[:-1]:
             if pixel == [x, y]:
                 fim_do_jogo = True 
+            elif evento.type == pygame.KEYDOWN:
+                velocidade_x, velocidade_y = selecionar_velocidade(evento.key)
 
         desenhar_cobra(tamanho_quadrado, pixels)
 
@@ -77,6 +94,11 @@ def jogar_jogo():
         # atualização da tela
         pygame.display.update()
         
+        #criação da nova comida após a cobrinha ja ter papado
+        if x == comida_x and y == comida_y:
+            tamanho_cobra += 1 
+            comida_x, comida_y = gerar_comida()
+
         # controle de velocidade
         relogio.tick(velocidade_de_atualizacao)
 
