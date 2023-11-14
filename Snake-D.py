@@ -4,7 +4,7 @@ import sys
 
 pygame.init()
 pygame.display.set_caption("Jogo da Cobrinha")
-largura, altura = 600, 400
+largura, altura = 1000, 600
 tela = pygame.display.set_mode((largura, altura))
 relogio = pygame.time.Clock()
 
@@ -18,13 +18,19 @@ azul = (0, 0, 255)
 
 #medidas da cobrinha
 
-tamanho_quadrado = 10
-velocidade = 15 
+tamanho_quadrado = 15
+velocidade_de_atualização = 15 
 
 #inicio do código do jogo
 
 def jogar_jogo():
     fim_do_jogo = False
+
+    x = largura / 2
+    y = altura / 2
+
+    velocidade_x = 0 
+    velocidade_y = 0
 
 
     while not fim_do_jogo:
